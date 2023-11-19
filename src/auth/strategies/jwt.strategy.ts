@@ -13,13 +13,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
           let token = null;
           if (req && req.cookies) {
             token = req.cookies['Authentication'];
-            console.log('token: ', token);
           }
           return token;
         },
       ]),
       ignoreExpiration: false,
-      secretOrKey: jwtConstant.secret,
+      secretOrKey: jwtConstant.publicKey,
     });
   }
 

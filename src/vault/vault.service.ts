@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import NodeVault, * as vault from 'node-vault';
-import { vaultConstants } from 'src/auth/constants';
 
 type JwtSecretKeyResponse = {
   request_id: string;
@@ -19,11 +19,11 @@ type JwtSecretKeyResponse = {
 export class VaultService {
   private readonly client: NodeVault.client;
 
-  constructor() {
+  constructor(configService: ConfigService) {
     this.client = vault({
       apiVersion: 'v1',
-      endpoint: 'http://127.0.0.1:8200',
-      token: vaultConstants.token,
+      endpoint: configService.get<string>('VAULT_ADDR'),
+      token: configService.get<string>('VAULT_TOKEN'),
     });
   }
 

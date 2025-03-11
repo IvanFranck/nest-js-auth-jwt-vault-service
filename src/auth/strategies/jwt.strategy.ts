@@ -2,14 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { jwtConstant } from '../constants';
-import { Request } from 'express';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
-        (req: Request) => {
+        (req: any) => {
           let token = null;
           if (req && req.cookies) {
             token = req.cookies['Authentication'];

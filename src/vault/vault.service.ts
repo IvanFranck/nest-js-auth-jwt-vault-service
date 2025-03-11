@@ -8,7 +8,9 @@ type JwtSecretKeyResponse = {
   renewable: boolean;
   lease_duration: number;
   data: {
-    key: string;
+    data: {
+      key: string;
+    };
   };
   wrap_info: any;
   warnings: any;
@@ -28,8 +30,9 @@ export class VaultService {
   }
 
   async getSecret(): Promise<string> {
-    const secretRespponse: JwtSecretKeyResponse =
-      await this.client.read('kv-v1/keys/jwt');
-    return secretRespponse.data.key;
+    const secretResponse: JwtSecretKeyResponse = await this.client.read(
+      'secret/data/jwt-private',
+    );
+    return secretResponse.data.data.key;
   }
 }

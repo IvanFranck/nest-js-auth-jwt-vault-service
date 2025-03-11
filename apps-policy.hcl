@@ -1,4 +1,4 @@
 # Read-only permit
-path "kv-v1/keys/jwt" {
+path "secret/data/jwt-private" {
   capabilities = [ "read" ]
 }
